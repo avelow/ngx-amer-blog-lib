@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class BlogLibService {
 
+  // Check how to inject a service with a provider token ?
   constructor() { }
 }
