@@ -1,10 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BlogLibComponent } from './blog-lib.component';
-import {Article, BlogService} from "./blog-lib.interfaces";
-import {Observable} from "rxjs/internal/Observable";
-import {of} from "rxjs/internal/observable/of";
-import {BLOG_SERVICE_TOKEN} from "./blog-lib.tokens";
 
 describe('BlogLibComponent', () => {
   let component: BlogLibComponent;
@@ -13,7 +9,9 @@ describe('BlogLibComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ BlogLibComponent ],
+      declarations: [
+        BlogLibComponent,
+      ],
     })
     .compileComponents();
   }));

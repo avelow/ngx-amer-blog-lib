@@ -2,12 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'amer-blog-lib',
-  template: `
-    <p>
-      blog-lib works!
-    </p>
-  `,
-  styles: []
+  templateUrl: './blog-lib.component.html',
+  styleUrls: ['./blog-lib.component.scss'],
 })
 export class BlogLibComponent implements OnInit {
 

@@ -1,0 +1,19 @@
+.container{
+  height:100%;
+}
+
+.scrollable{
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebard {
+  background-color: blue;
+}
+
+.content {
+  background-color: red;
+}
