@@ -1,19 +1,23 @@
+@import '~@angular/material/theming';
+
 .container{
   height:100%;
-}
-
-.scrollable{
-  overflow: scroll;
 }
 
 ::-webkit-scrollbar {
   display: none;
 }
 
-.sidebard {
-  background-color: blue;
+.sidebar {
+  overflow: scroll;
+  @include mat-elevation-transition();
+  @include mat-elevation(2);
+
+  &:hover {
+    @include mat-elevation(4);
+  }
 }
 
 .content {
-  background-color: red;
+  overflow: scroll;
 }
