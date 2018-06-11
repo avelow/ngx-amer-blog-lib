@@ -1,9 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BlogLibComponent } from './blog-lib.component';
 import {Component} from "@angular/core";
 import {By} from "@angular/platform-browser";
-
+import {BackgroundImageModule} from "./background-image/background-image.module";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {CommonModule} from "@angular/common";
+import {ListArticlesComponent} from "./articles/list-articles/list-articles.component";
 
 @Component({
   template: `
@@ -15,6 +17,8 @@ import {By} from "@angular/platform-browser";
 class TestHostComponent {
 }
 
+//////////////////////////////////////////////////////////////////////
+
 describe('BlogLibComponent', () => {
   let hostComponent: TestHostComponent;
   let blogComponent: BlogLibComponent;
@@ -24,16 +28,23 @@ describe('BlogLibComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlogLibComponent, TestHostComponent ],
+      imports: [
+        CommonModule,
+        FlexLayoutModule,
+        BackgroundImageModule,
+      ],
+      declarations: [
+        BlogLibComponent,
+        ListArticlesComponent,
+        TestHostComponent
+      ],
     });
 
     fixture  = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
-    hostElement = fixture.nativeElement;
     hostComponent = fixture.componentInstance;
     let blogDebugElement = fixture.debugElement.query(By.directive(BlogLibComponent));
     blogComponent = blogDebugElement.componentInstance;
-    blogElement = blogDebugElement.nativeElement;
   });
 
   afterEach(() => {

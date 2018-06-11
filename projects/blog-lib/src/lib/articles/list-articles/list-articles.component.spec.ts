@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListArticlesComponent } from './list-articles.component';
+import {BackgroundImageModule} from "../../background-image/background-image.module";
 
 describe('ListArticlesComponent', () => {
   let component: ListArticlesComponent;
@@ -8,6 +9,7 @@ describe('ListArticlesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ BackgroundImageModule ],
       declarations: [ ListArticlesComponent ]
     })
     .compileComponents();

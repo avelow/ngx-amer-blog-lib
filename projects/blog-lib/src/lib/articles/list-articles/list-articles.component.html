@@ -1,3 +1,16 @@
-<p>
-  list-articles works!
-</p>
+<div fxLayout="column wrap"
+     fxLayoutGap="5px">
+
+  <div
+    id="{{ article.slug }}"
+    class="preview"
+    *ngFor="let article of articles"
+    [amer-background-image]="article.cover.src" amer-background-size="cover"
+    (click)="open(article)">
+   <!-- fxFlex="100%"> -->
+    <div class="info"
+         fxLayout="column-reverse wrap">
+      <div class="mat-headline">{{ article.title }}</div>
+    </div>
+  </div>
+</div>

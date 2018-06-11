@@ -6,7 +6,7 @@ import { BlogLibModule } from "blog-lib";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

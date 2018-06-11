@@ -1,0 +1,13 @@
+.preview {
+  height:400px;
+  cursor: pointer;
+
+  & > div {
+    color: white;
+    height: 100%;
+
+    & > div {
+      margin: 50px;
+    }
+  }
+}
