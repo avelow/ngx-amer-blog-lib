@@ -1,24 +1,24 @@
-import {AfterViewInit, Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges} from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
 
 @Directive({
-  selector: '[amer-background-image]'
+  selector: '[amerBackgroundImage]'
 })
 export class BackgroundImageDirective implements OnChanges, AfterViewInit {
 
   /**
    * The element hosting the directive
    */
-  private el: HTMLElement;
+  private readonly el: HTMLElement;
 
   /**
    * the background image url
    */
-  @Input('amer-background-image') backgroundImage: string;
+  @Input() url: string;
 
   /**
    * The background size
    */
-  @Input('amer-background-size') backgroundSize: string;
+  @Input() size: string;
 
   constructor(private renderer: Renderer2, private elRef: ElementRef) {
     this.el = this.elRef.nativeElement;
@@ -36,12 +36,12 @@ export class BackgroundImageDirective implements OnChanges, AfterViewInit {
    * Update the background image on change of the values of the input
    */
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['amer-background-image']) {
-      this.backgroundImage = changes['amer-background-image'].currentValue;
+    if (changes['url']) {
+      this.url = changes['url'].currentValue;
       this.setBackgroundImage();
     }
-    if (changes['amer-background-size']) {
-      this.backgroundSize = changes['amer-background-size'].currentValue;
+    if (changes['size']) {
+      this.size = changes['size'].currentValue;
       this.setBackgroundSize();
     }
   }
@@ -50,13 +50,13 @@ export class BackgroundImageDirective implements OnChanges, AfterViewInit {
    * Set the background image
    */
   setBackgroundImage() {
-    this.renderer.setStyle(this.el, "backgroundImage", `url(${ this.backgroundImage })`);
+    this.renderer.setStyle(this.el, 'backgroundImage', `url(${ this.url })`);
   }
 
   /**
    * Set the background size
    */
   setBackgroundSize() {
-    this.renderer.setStyle(this.el, "backgroundSize", this.backgroundSize);
+    this.renderer.setStyle(this.el, 'backgroundSize', this.size);
   }
 }

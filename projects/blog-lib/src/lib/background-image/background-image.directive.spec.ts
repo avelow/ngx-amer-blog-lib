@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {Component, OnChanges, SimpleChange, SimpleChanges, ViewChild} from "@angular/core";
-import {BackgroundImageDirective} from "./background-image.directive";
-import {By} from "@angular/platform-browser";
+import { Component, SimpleChange, ViewChild } from '@angular/core';
+import { BackgroundImageDirective } from './background-image.directive';
+import { By } from '@angular/platform-browser';
 
 @Component({
-  template: `<div #directive [amer-background-image]="url" [amer-background-size]="size"></div>`
+  template: `<div amerBackgroundImage [url]="url" [size]="size"></div>`
 })
 class TestHostComponent {
   @ViewChild(BackgroundImageDirective) directive;
@@ -54,8 +54,8 @@ describe('BackgroundImageDirective', () => {
 
     // WHEN
     hostComponent.directive.ngOnChanges({
-      'amer-background-image': new SimpleChange(originalUrl, expectedUrl, false),
-      'amer-background-size': new SimpleChange(originalSize, expectedSize, false),
+      'url': new SimpleChange(originalUrl, expectedUrl, false),
+      'size': new SimpleChange(originalSize, expectedSize, false),
     });
     fixture.detectChanges();
 
@@ -76,7 +76,7 @@ describe('BackgroundImageDirective', () => {
 
     // WHEN
     hostComponent.directive.ngOnChanges({
-      'amer-background-image': new SimpleChange(originalUrl, expectedUrl, false),
+      'url': new SimpleChange(originalUrl, expectedUrl, false),
     });
     fixture.detectChanges();
 
@@ -95,7 +95,7 @@ describe('BackgroundImageDirective', () => {
 
     // WHEN
     hostComponent.directive.ngOnChanges({
-      'amer-background-size': new SimpleChange(originalSize, expectedSize, false),
+      'size': new SimpleChange(originalSize, expectedSize, false),
     });
     fixture.detectChanges();
 

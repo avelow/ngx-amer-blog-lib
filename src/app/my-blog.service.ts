@@ -1,12 +1,14 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import {BlogLibModule} from 'blog-lib';
-import {By} from '@angular/platform-browser';
-import {BLOG_SERVICE_TOKEN} from 'blog-lib';
+import { Injectable } from '@angular/core';
 import {BlogService} from 'blog-lib';
 import {of} from 'rxjs/internal/observable/of';
 
-class FakeBlogService implements BlogService {
+@Injectable({
+  providedIn: 'root'
+})
+export class MyBlogService implements BlogService {
+
+  constructor() { }
+
   getArticles() {
     return of([
       {
@@ -47,23 +49,3 @@ class FakeBlogService implements BlogService {
     };
   }
 }
-
-describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        BlogLibModule.forRoot({ provide: BLOG_SERVICE_TOKEN, useClass: FakeBlogService }),
-      ],
-      declarations: [
-        AppComponent,
-      ],
-    }).compileComponents();
-  }));
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    const sidebarElement = fixture.debugElement.query(By.css('div[sidebar]'));
-    expect(app).toBeTruthy();
-    expect(sidebarElement).toBeTruthy();
-  }));
-});

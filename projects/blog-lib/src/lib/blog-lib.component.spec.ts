@@ -1,11 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BlogLibComponent } from './blog-lib.component';
-import {Component} from "@angular/core";
-import {By} from "@angular/platform-browser";
-import {BackgroundImageModule} from "./background-image/background-image.module";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {CommonModule} from "@angular/common";
-import {ListArticlesComponent} from "./articles/list-articles/list-articles.component";
+import {Component} from '@angular/core';
+import {By} from '@angular/platform-browser';
+import {BackgroundImageModule} from './background-image/background-image.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {CommonModule} from '@angular/common';
+import {ListArticlesComponent} from './articles/list-articles/list-articles.component';
+import {Article, BlogService} from './blog-lib.interfaces';
+import {BLOG_SERVICE_TOKEN} from './blog-lib.tokens';
+import {of} from 'rxjs/internal/observable/of';
 
 @Component({
   template: `
@@ -17,14 +20,54 @@ import {ListArticlesComponent} from "./articles/list-articles/list-articles.comp
 class TestHostComponent {
 }
 
+class FakeBlogService implements BlogService {
+  getArticles() {
+    return of([
+      {
+        title: 'Le poker : un jeu de probabilités ou de chances ?',
+        publishedDate: '10/10/10',
+        cover: {
+          alt: 'alt',
+          src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
+        },
+        slug: 'titre-1',
+        filePath: 'no-file',
+      }, {
+        title: 'Le pokzerzrz ou de chances ?',
+        publishedDate: '10/10/10',
+        cover: {
+          alt: 'alt',
+          src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
+        },
+        slug: 'rzerezrezrez-1',
+        filePath: 'no-file',
+      },
+    ]);
+  }
+
+  setCurrentArticle(article) {
+  }
+
+  getCurrentArticle() {
+    return {
+      title: 'Le poker : un jeu de probabilités ou de chances ?',
+      publishedDate: '10/10/10',
+      cover: {
+        alt: 'alt',
+        src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
+      },
+      slug: 'titre-1',
+      filePath: 'no-file',
+    };
+  }
+}
+
 //////////////////////////////////////////////////////////////////////
 
 describe('BlogLibComponent', () => {
   let hostComponent: TestHostComponent;
   let blogComponent: BlogLibComponent;
   let fixture: ComponentFixture<TestHostComponent>;
-  let hostElement: any;
-  let blogElement: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,6 +75,9 @@ describe('BlogLibComponent', () => {
         CommonModule,
         FlexLayoutModule,
         BackgroundImageModule,
+      ],
+      providers: [
+        { provide: BLOG_SERVICE_TOKEN, useClass: FakeBlogService }
       ],
       declarations: [
         BlogLibComponent,
@@ -43,7 +89,7 @@ describe('BlogLibComponent', () => {
     fixture  = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
     hostComponent = fixture.componentInstance;
-    let blogDebugElement = fixture.debugElement.query(By.directive(BlogLibComponent));
+    const blogDebugElement = fixture.debugElement.query(By.directive(BlogLibComponent));
     blogComponent = blogDebugElement.componentInstance;
   });
 
@@ -67,5 +113,9 @@ describe('BlogLibComponent', () => {
     const fakeSidebarH1 = fixture.debugElement.query(By.css('#fakeTestH1'));
 
     expect(fakeSidebarH1).toBeNull();
+  });
+
+  xit('should display the list articles', () => {
+    // TODO: test list is imported
   });
 });

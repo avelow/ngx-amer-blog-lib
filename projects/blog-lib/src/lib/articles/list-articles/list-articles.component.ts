@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Article} from "../../blog-lib.interfaces";
+import {Article} from '../../blog-lib.interfaces';
 
 @Component({
   selector: 'amer-list-articles',

@@ -1,8 +1,7 @@
-import {Observable} from "rxjs/internal/Observable";
+import {Observable} from 'rxjs/internal/Observable';
 
 export interface BlogService {
-  loadArticles(): Observable<boolean>;
-  getArticles(): Article[];
+  getArticles(): Observable<Article[]>;
   setCurrentArticle(Article): void;
   getCurrentArticle(): Article;
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Article} from "./blog-lib.interfaces";
+import {Component, Inject, OnInit} from '@angular/core';
+import {Article, BlogService} from './blog-lib.interfaces';
+import {BLOG_SERVICE_TOKEN} from './blog-lib.tokens';
 
 @Component({
   selector: 'amer-blog-lib',
@@ -10,32 +11,10 @@ export class BlogLibComponent implements OnInit {
 
   articles: Article[] = [];
 
-  constructor() { }
+  constructor(@Inject(BLOG_SERVICE_TOKEN) private service: BlogService) { }
 
   ngOnInit() {
-
-    this.articles = [
-      {
-        title: 'Le poker : un jeu de probabilités ou de chances ?',
-        publishedDate: '10/10/10',
-        cover: {
-          alt: 'alt',
-          src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
-        },
-        slug: 'titre-1',
-        filePath: 'no-file',
-      },{
-        title: 'Le pokzerzrz ou de chances ?',
-        publishedDate: '10/10/10',
-        cover: {
-          alt: 'alt',
-          src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
-        },
-        slug: 'rzerezrezrez-1',
-        filePath: 'no-file',
-      },
-    ]
-
+    this.service.getArticles().subscribe(articles => this.articles = articles);
   }
 
 }

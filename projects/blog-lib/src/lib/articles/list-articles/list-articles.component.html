@@ -5,7 +5,7 @@
     id="{{ article.slug }}"
     class="preview"
     *ngFor="let article of articles"
-    [amer-background-image]="article.cover.src" amer-background-size="cover"
+    amerBackgroundImage [url]="article.cover.src" size="cover"
     (click)="open(article)">
    <!-- fxFlex="100%"> -->
     <div class="info"
