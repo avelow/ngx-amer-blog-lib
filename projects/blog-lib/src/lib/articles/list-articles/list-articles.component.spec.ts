@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListArticlesComponent } from './list-articles.component';
-import {BackgroundImageModule} from '../../background-image/background-image.module';
+import { BackgroundImageModule } from 'ngx-amer-directives';
 import {Component} from '@angular/core';
 import {Article} from '../../blog-lib.interfaces';
 import {By} from '@angular/platform-browser';

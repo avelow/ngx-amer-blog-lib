@@ -2,16 +2,13 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import { BlogLibComponent } from './blog-lib.component';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {BackgroundImageModule} from './background-image/background-image.module';
+import { BackgroundImageModule } from 'ngx-amer-directives';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CommonModule} from '@angular/common';
 import {ListArticlesComponent} from './articles/list-articles/list-articles.component';
 import {Article, BlogService} from './blog-lib.interfaces';
 import {BLOG_SERVICE_TOKEN} from './blog-lib.tokens';
 import {of} from 'rxjs/internal/observable/of';
-import {concatMap, delay, map, take} from 'rxjs/operators';
-import {fromArray} from 'rxjs/internal/observable/fromArray';
-import {interval} from 'rxjs/internal/observable/interval';
 
 @Component({
   template: `
