@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import { BlogLibComponent } from './blog-lib.component';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
@@ -9,6 +9,9 @@ import {ListArticlesComponent} from './articles/list-articles/list-articles.comp
 import {Article, BlogService} from './blog-lib.interfaces';
 import {BLOG_SERVICE_TOKEN} from './blog-lib.tokens';
 import {of} from 'rxjs/internal/observable/of';
+import {concatMap, delay, map, take} from 'rxjs/operators';
+import {fromArray} from 'rxjs/internal/observable/fromArray';
+import {interval} from 'rxjs/internal/observable/interval';
 
 @Component({
   template: `
@@ -20,29 +23,45 @@ import {of} from 'rxjs/internal/observable/of';
 class TestHostComponent {
 }
 
+const articlesParam1: Article[] = [
+  {
+    title: 'Le poker : un jeu de probabilités ou de chances ?',
+    publishedDate: '10/10/10',
+    cover: {
+      alt: 'alt',
+      src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
+    },
+    slug: 'titre-1',
+    filePath: 'no-file',
+  }, {
+    title: 'Le pokzerzrz ou de chances ?',
+    publishedDate: '10/10/10',
+    cover: {
+      alt: 'alt',
+      src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
+    },
+    slug: 'rzerezrezrez-1',
+    filePath: 'no-file',
+  },
+];
+
+const articlesParam2: Article[] = [
+  {
+    title: 'Le poker : un jeu derere probabilités ou de chances ?',
+    publishedDate: '10/10/10',
+    cover: {
+      alt: 'alt',
+      src: 'https://gagnaererernt-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
+    },
+    slug: 'titre-2',
+    filePath: 'no-file',
+  }
+];
+
 class FakeBlogService implements BlogService {
+
   getArticles() {
-    return of([
-      {
-        title: 'Le poker : un jeu de probabilités ou de chances ?',
-        publishedDate: '10/10/10',
-        cover: {
-          alt: 'alt',
-          src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
-        },
-        slug: 'titre-1',
-        filePath: 'no-file',
-      }, {
-        title: 'Le pokzerzrz ou de chances ?',
-        publishedDate: '10/10/10',
-        cover: {
-          alt: 'alt',
-          src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
-        },
-        slug: 'rzerezrezrez-1',
-        filePath: 'no-file',
-      },
-    ]);
+    return of(articlesParam1);
   }
 
   setCurrentArticle(article) {
@@ -115,7 +134,16 @@ describe('BlogLibComponent', () => {
     expect(fakeSidebarH1).toBeNull();
   });
 
-  xit('should display the list articles', () => {
-    // TODO: test list is imported
-  });
+  it('should display the list articles', fakeAsync(() => {
+    // GIVEN
+    const listArticles = fixture.debugElement.query(By.css('amer-list-articles'));
+    expect(listArticles).toBeTruthy();
+
+    // WHEN
+    tick(1000);
+    fixture.detectChanges();
+
+    // THEN
+    expect(blogComponent.articles).toEqual(articlesParam1);
+  }));
 });

@@ -22,7 +22,6 @@ export class ListArticlesComponent {
    * Emit an open article event
    */
   open(article: Article) {
-    console.log(article);
     this.openArticle.emit(article);
   }
 
