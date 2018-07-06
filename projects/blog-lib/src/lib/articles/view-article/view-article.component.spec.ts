@@ -1,3 +1,4 @@
+import { FakeMarkdownComponent } from './../../../tests/fake-markdown.component';
 import { MarkdownModule, MarkdownComponent } from 'ngx-markdown';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -10,14 +11,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { ViewArticleComponent } from './view-article.component';
 import { ActivatedRouteStub } from 'ngx-amer-tests-utilities';
-
-@Component({
-  selector: 'markdown',
-  template: ''
-})
-class FakeMarkdownComponent {
-  @Input() src: string;
-}
 
 @Component({
   template: `<amer-view-article></amer-view-article>`

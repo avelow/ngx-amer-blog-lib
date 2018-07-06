@@ -1,3 +1,4 @@
+import { FakeMarkdownComponent } from './../tests/fake-markdown.component';
 import { MarkdownModule, MarkdownComponent } from 'ngx-markdown';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BlogLibComponent } from './blog-lib.component';
@@ -66,14 +67,6 @@ export class FakeBlogService implements BlogService {
       }
     ]);
   }
-}
-
-@Component({
-  selector: 'markdown',
-  template: ''
-})
-class FakeMarkdownComponent {
-  @Input() src: string;
 }
 
 //////////////////////////////////////////////////////////////////////
