@@ -5,8 +5,24 @@ import {By} from '@angular/platform-browser';
 import {BLOG_SERVICE_TOKEN} from 'blog-lib';
 import {BlogService} from 'blog-lib';
 import {of} from 'rxjs/internal/observable/of';
+import {Observable} from 'rxjs/internal/Observable';
+import {Article, BLOG_ROUTES} from 'blog-lib';
+import {RouterTestingModule} from '@angular/router/testing';
 
 class FakeBlogService implements BlogService {
+  getArticleBySlug(slug: string): Observable<Article> {
+    return of({
+      title: 'Le poker : un jeu de probabilités ou de chances ?',
+      publishedDate: '10/10/10',
+      cover: {
+        alt: 'alt',
+        src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
+      },
+      slug: 'titre-1',
+      filePath: 'no-file',
+    });
+  }
+
   getArticles() {
     return of([
       {
@@ -30,28 +46,13 @@ class FakeBlogService implements BlogService {
       },
     ]);
   }
-
-  setCurrentArticle(article) {
-  }
-
-  getCurrentArticle() {
-    return {
-      title: 'Le poker : un jeu de probabilités ou de chances ?',
-      publishedDate: '10/10/10',
-      cover: {
-        alt: 'alt',
-        src: 'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg',
-      },
-      slug: 'titre-1',
-      filePath: 'no-file',
-    };
-  }
 }
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule.withRoutes(BLOG_ROUTES),
         BlogLibModule.forRoot({ provide: BLOG_SERVICE_TOKEN, useClass: FakeBlogService }),
       ],
       declarations: [

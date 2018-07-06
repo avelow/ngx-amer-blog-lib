@@ -1,0 +1,14 @@
+<article>
+  <header>
+    <a routerLink="/" mat-button color="primary ">Retour à la liste</a>
+
+    <div>
+      <h1>{{ (article$ | async)?.title }}</h1>
+      <h2>{{ (article$ | async)?.publishedDate | date:'fullDate' | titlecase }}</h2>
+    </div>
+  </header>
+
+  <section>
+    <markdown *ngIf="(article$ | async).filePath" [src]="(article$ | async).filePath"></markdown>
+  </section>
+</article>

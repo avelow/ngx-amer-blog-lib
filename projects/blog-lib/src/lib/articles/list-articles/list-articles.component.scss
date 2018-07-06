@@ -1,6 +1,7 @@
 .preview {
+  display: block;
   height:400px;
-  cursor: pointer;
+  text-decoration: none;
 
   & > div {
     color: white;
