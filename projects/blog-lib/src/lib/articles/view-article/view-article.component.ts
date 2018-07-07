@@ -8,7 +8,7 @@ import { map, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'amer-view-article',
   templateUrl: './view-article.component.html',
-  styleUrls: ['./view-article.component.css']
+  styleUrls: ['./view-article.component.scss']
 })
 export class ViewArticleComponent implements OnInit {
   article$: Observable<Article>;
