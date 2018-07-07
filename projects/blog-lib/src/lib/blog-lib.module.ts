@@ -6,7 +6,6 @@ import {
   SkipSelf
 } from '@angular/core';
 import { BlogLibComponent } from './blog-lib.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { ListArticlesComponent } from './articles/list-articles/list-articles.component';
 import { CommonModule } from '@angular/common';
 import { BackgroundImageModule } from 'ngx-amer-directives';
