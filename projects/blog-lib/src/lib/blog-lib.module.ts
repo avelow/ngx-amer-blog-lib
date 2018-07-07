@@ -13,13 +13,14 @@ import { BackgroundImageModule } from 'ngx-amer-directives';
 import { ViewArticleComponent } from './articles/view-article/view-article.component';
 import { RouterModule } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FlexLayoutModule,
     BackgroundImageModule,
     RouterModule,
+    MaterialModule,
     MarkdownModule.forChild()
   ],
   declarations: [BlogLibComponent, ListArticlesComponent, ViewArticleComponent],
