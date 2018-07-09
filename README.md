@@ -11,3 +11,4 @@ Library to generate a blog.
 - A demo app with unit tests
 - Manage scroll when going back to the list
 - Write a better readme.md
+- Gestion de la traduction
