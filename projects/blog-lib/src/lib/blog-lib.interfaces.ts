@@ -6,6 +6,7 @@ export interface BlogService {
 }
 
 export interface Article {
+  author: string;
   title: string;
   publishedDate: string;
   cover: Image;

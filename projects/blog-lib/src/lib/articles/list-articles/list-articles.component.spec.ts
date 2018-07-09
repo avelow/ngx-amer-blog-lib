@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { BlogService } from '../../blog-lib.interfaces';
 import { By } from '@angular/platform-browser';
 import { BLOG_SERVICE_TOKEN } from '../../blog-lib.tokens';
-import { FakeBlogService } from '../../blog-lib.component.spec';
+import { FakeBlogService } from '../../../tests/fake-blog-lib.service';
 import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({

@@ -1,17 +1,15 @@
-import { FakeMarkdownComponent } from './../tests/fake-markdown.component';
+import { FakeBlogService } from '../tests/fake-blog-lib.service';
+import { FakeMarkdownComponent } from '../tests/fake-markdown.component';
 import { MarkdownModule, MarkdownComponent } from 'ngx-markdown';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BlogLibComponent } from './blog-lib.component';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BackgroundImageModule } from 'ngx-amer-directives';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule, Location } from '@angular/common';
 import { ListArticlesComponent } from './articles/list-articles/list-articles.component';
-import { Article, BlogService } from './blog-lib.interfaces';
 import { BLOG_SERVICE_TOKEN } from './blog-lib.tokens';
-import { of } from 'rxjs/internal/observable/of';
-import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BLOG_ROUTES } from './blog-lib.routing';
@@ -25,49 +23,6 @@ import { ViewArticleComponent } from './articles/view-article/view-article.compo
     </amer-blog-lib>`
 })
 class TestHostComponent {}
-
-export class FakeBlogService implements BlogService {
-  getArticleBySlug(slug: string): Observable<Article> {
-    return of({
-      title: 'Le poker : un jeu de probabilités ou de chances ?',
-      publishedDate: '10/10/10',
-      cover: {
-        alt: 'alt',
-        src:
-          'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg'
-      },
-      slug: 'titre-1',
-      filePath: 'no-file'
-    });
-  }
-
-  getArticles() {
-    return of([
-      {
-        title: 'Le poker : un jeu de probabilités ou de chances ?',
-        publishedDate: '10/10/10',
-        cover: {
-          alt: 'alt',
-          src:
-            'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg'
-        },
-        slug: 'titre-1',
-        filePath: 'no-file'
-      },
-      {
-        title: 'Le pokzerzrz ou de chances ?',
-        publishedDate: '10/10/10',
-        cover: {
-          alt: 'alt',
-          src:
-            'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg'
-        },
-        slug: 'titre-2',
-        filePath: 'no-file'
-      }
-    ]);
-  }
-}
 
 //////////////////////////////////////////////////////////////////////
 

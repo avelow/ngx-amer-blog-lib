@@ -1,10 +1,12 @@
-<article>
-  <header>
-    <a routerLink="/" mat-button color="primary">Retour à la liste</a>
+<article class="mat-typography">
+  <header fxLayout="column">
+    <div fxLayout="row-reverse">
+      <a routerLink="/" mat-button color="primary">Retour à la liste</a>
+    </div>
 
     <div>
-      <h1>{{ (article$ | async)?.title }}</h1>
-      <h2>{{ (article$ | async)?.publishedDate | date:'fullDate' | titlecase }}</h2>
+      <h1 id="article-title" class="headline">{{ (article$ | async)?.title }}</h1>
+      <h3 class="subheading-2">{{ (article$ | async)?.publishedDate | date:'fullDate' | titlecase }} par {{ (article$ | async)?.author }}</h3>
     </div>
   </header>
 

@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -14,12 +14,14 @@ import { MyBlogService } from './my-blog.service';
   imports: [
     BrowserModule,
     HttpClientModule,
+    MarkdownModule.forRoot({
+      loader: HttpClient
+    }),
     BlogLibModule.forRoot({
       provide: BLOG_SERVICE_TOKEN,
       useClass: MyBlogService
     }),
-    AppRoutingModule,
-    MarkdownModule.forRoot({ loader: HttpClient })
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })

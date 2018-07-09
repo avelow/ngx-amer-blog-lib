@@ -1,4 +1,6 @@
-import { FakeMarkdownComponent } from './../../../tests/fake-markdown.component';
+import { FakeBlogService } from './../../../tests/fake-blog-lib.service';
+import { By } from '@angular/platform-browser';
+import { FakeMarkdownComponent } from '../../../tests/fake-markdown.component';
 import { MarkdownModule, MarkdownComponent } from 'ngx-markdown';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -6,7 +8,6 @@ import { BackgroundImageModule } from 'ngx-amer-directives';
 import { Component, Input } from '@angular/core';
 import { BlogService } from '../../blog-lib.interfaces';
 import { BLOG_SERVICE_TOKEN } from '../../blog-lib.tokens';
-import { FakeBlogService } from '../../blog-lib.component.spec';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { ViewArticleComponent } from './view-article.component';
@@ -85,5 +86,16 @@ describe('ViewArticleComponent', () => {
     activatedRouteStub.setParamMap({ slug: 'titre-2' });
     fixture.detectChanges();
     expect(service.getArticleBySlug).toHaveBeenCalledWith('titre-2');
+  });
+
+  it('should have the markdown component with the good input', () => {
+    // GIVEN
+    fixture.detectChanges();
+    const markdownComponent = fixture.debugElement.query(
+      By.directive(FakeMarkdownComponent)
+    ).componentInstance;
+
+    // THEN
+    expect(markdownComponent.src).toEqual('no-file-1');
   });
 });

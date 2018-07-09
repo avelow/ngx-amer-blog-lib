@@ -12,6 +12,7 @@ export class MyBlogService implements BlogService {
   getArticles() {
     return of([
       {
+        author: 'Auteur',
         title: 'Le poker : un jeu de probabilités ou de chances ?',
         publishedDate: '10/10/10',
         cover: {
@@ -23,6 +24,7 @@ export class MyBlogService implements BlogService {
         filePath: '/assets/article-1.md'
       },
       {
+        author: 'Auteur',
         title: 'Le pokzerzrz ou de chances ?',
         publishedDate: '10/10/10',
         cover: {
