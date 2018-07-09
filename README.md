@@ -4,7 +4,7 @@ Library to generate a blog.
 
 ## install
 
-‘npm install ngx-amer-blog-lib‘
+npm install ngx-amer-blog-lib
 
 ## Need to be done
 
