@@ -1,5 +1,5 @@
 {
-  "name": "blog-lib",
+  "name": "ngx-amer-blog-lib",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/language-service": "^6.0.0",
