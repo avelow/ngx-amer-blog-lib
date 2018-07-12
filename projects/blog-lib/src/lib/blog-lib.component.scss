@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 
-.container{
-  height:100%;
+.container {
+  height: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -9,7 +9,6 @@
 }
 
 .sidebar {
-  overflow: scroll;
   @include mat-elevation-transition();
   @include mat-elevation(2);
 
@@ -18,6 +17,6 @@
   }
 }
 
-.content {
+.scrollable {
   overflow: scroll;
 }
