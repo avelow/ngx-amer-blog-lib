@@ -1,15 +1,6 @@
-<div fxLayout="column wrap"
-     fxLayoutGap="5px">
+<div fxLayout="column wrap" fxLayoutGap="5px">
 
-  <a [routerLink]="[article.slug]"
-    [id]="article.slug"
-    class="preview"
-    *ngFor="let article of articles$ | async"
+  <a [routerLink]="[article.slug]" [id]="article.slug" class="preview" *ngFor="let article of articles$ | async"
     amerBackgroundImage [url]="article.cover.src" size="cover">
-   <!-- fxFlex="100%"> -->
-    <div class="info"
-         fxLayout="column-reverse wrap">
-      <div class="mat-headline">{{ article.title }}</div>
-    </div>
   </a>
 </div>
