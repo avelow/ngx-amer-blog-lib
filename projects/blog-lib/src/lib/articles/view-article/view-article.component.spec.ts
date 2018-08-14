@@ -12,6 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { ViewArticleComponent } from './view-article.component';
 import { ActivatedRouteStub } from 'ngx-amer-tests-utilities';
+import { of } from 'rxjs';
 
 @Component({
   template: `<amer-view-article></amer-view-article>`
@@ -97,5 +98,101 @@ describe('ViewArticleComponent', () => {
 
     // THEN
     expect(markdownComponent.src).toEqual('no-file-1');
+  });
+
+  it('should not display the date and the author if the author is missing', () => {
+    // GIVEN
+    spyOn(service, 'getArticleBySlug').and.returnValue(
+      of({
+        author: '',
+        title: 'Le poker : un jeu de probabilités ou de chances ?',
+        publishedDate: '10/10/10',
+        cover: {
+          alt: 'alt',
+          src:
+            'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg'
+        },
+        slug: 'titre-1',
+        filePath: 'no-file-1'
+      })
+    );
+
+    // WHEN
+    fixture.detectChanges();
+
+    // THEN
+    expect(fixture.debugElement.query(By.css('h3.subheading-2'))).toBeFalsy();
+  });
+
+  it('should not display the date and the author if the date is missing', () => {
+    // GIVEN
+    spyOn(service, 'getArticleBySlug').and.returnValue(
+      of({
+        author: 'Auteur',
+        title: 'Le poker : un jeu de probabilités ou de chances ?',
+        publishedDate: '',
+        cover: {
+          alt: 'alt',
+          src:
+            'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg'
+        },
+        slug: 'titre-1',
+        filePath: 'no-file-1'
+      })
+    );
+
+    // WHEN
+    fixture.detectChanges();
+
+    // THEN
+    expect(fixture.debugElement.query(By.css('h3.subheading-2'))).toBeFalsy();
+  });
+
+  it('should not display the date and the author if both are missing', () => {
+    // GIVEN
+    spyOn(service, 'getArticleBySlug').and.returnValue(
+      of({
+        author: '',
+        title: 'Le poker : un jeu de probabilités ou de chances ?',
+        publishedDate: '',
+        cover: {
+          alt: 'alt',
+          src:
+            'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg'
+        },
+        slug: 'titre-1',
+        filePath: 'no-file-1'
+      })
+    );
+
+    // WHEN
+    fixture.detectChanges();
+
+    // THEN
+    expect(fixture.debugElement.query(By.css('h3.subheading-2'))).toBeFalsy();
+  });
+
+  it('should display the date and the author if both are present', () => {
+    // GIVEN
+    spyOn(service, 'getArticleBySlug').and.returnValue(
+      of({
+        author: 'Auteur',
+        title: 'Le poker : un jeu de probabilités ou de chances ?',
+        publishedDate: '10/08/2018',
+        cover: {
+          alt: 'alt',
+          src:
+            'https://gagnant-du-jour.com/wp-content/uploads/2018/04/poker-tournament-21.jpg'
+        },
+        slug: 'titre-1',
+        filePath: 'no-file-1'
+      })
+    );
+
+    // WHEN
+    fixture.detectChanges();
+
+    // THEN
+    expect(fixture.debugElement.query(By.css('h3.subheading-2'))).toBeTruthy();
   });
 });
