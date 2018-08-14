@@ -1,12 +1,12 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { BlogLibModule } from 'dist/blog-lib/blog-lib';
+import { BlogLibModule } from 'blog-lib';
 import { By } from '@angular/platform-browser';
-import { BLOG_SERVICE_TOKEN } from 'dist/blog-lib/blog-lib';
-import { BlogService } from 'dist/blog-lib/blog-lib';
+import { BLOG_SERVICE_TOKEN } from 'blog-lib';
+import { BlogService } from 'blog-lib';
 import { of } from 'rxjs/internal/observable/of';
 import { Observable } from 'rxjs/internal/Observable';
-import { Article, BLOG_ROUTES } from 'dist/blog-lib/blog-lib';
+import { Article, BLOG_ROUTES } from 'blog-lib';
 import { RouterTestingModule } from '@angular/router/testing';
 
 class FakeBlogService implements BlogService {
