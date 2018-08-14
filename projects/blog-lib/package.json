@@ -1,7 +1,8 @@
 {
   "name": "ngx-amer-blog-lib",
-  "version": "0.0.3",
+  "version": "0.0.4-SNAPSHOT",
   "peerDependencies": {
+    "@angular/language-service": "^6.0.0",
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/flex-layout": "^6.0.0-beta.15",
@@ -11,8 +12,5 @@
     "hammerjs": "^2.0.8",
     "ngx-amer-directives": "0.0.1",
     "ngx-markdown": "^6.1.0"
-  },
-  "devDependencies": {
-    "@angular/language-service": "^6.0.0"
   }
 }
