@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.scrollable {
+  height: 100vh;
+}
+
 .sidebar {
   @include mat-elevation-transition();
   @include mat-elevation(2);
@@ -13,6 +17,6 @@
   }
 }
 
-.scrollable {
-  overflow: scroll;
+[data-simplebar] {
+  height: 100%;
 }

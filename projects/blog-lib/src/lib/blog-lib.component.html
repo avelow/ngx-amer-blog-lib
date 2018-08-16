@@ -1,9 +1,12 @@
 <div class="container blog-lib" fxLayout.xs="column" fxLayout="row" fxLayoutGap="0px">
   <div class="sidebar" ngClass.gt-xs="scrollable" fxFlex.gt-xs="40%">
-    <ng-content select="[sidebar]"></ng-content>
+    <div data-simplebar>
+      <ng-content select="[sidebar]"></ng-content>
+    </div>
   </div>
-
   <div ngClass.gt-xs="scrollable" fxFlex>
-    <router-outlet></router-outlet>
+    <div data-simplebar>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
