@@ -1,3 +1,4 @@
+import { SidebarService } from './sidebar.service';
 import {
   ModuleWithProviders,
   NgModule,
@@ -26,16 +27,30 @@ import { MaterialModule } from './material.module';
   exports: [BlogLibComponent]
 })
 export class BlogLibModule {
+  /**
+   * Constructor checking that the BlogLibModule is instantiate only once.
+   * @param module the BlogLibModule
+   */
   constructor(
     @Optional()
     @SkipSelf()
-    module: BlogLibModule
-  ) {}
+    private module: BlogLibModule
+  ) {
+    if (this.module !== null && this.module !== undefined) {
+      throw new Error(
+        'BlogLibModule is already loaded. Import it in the AppModule only'
+      );
+    }
+  }
 
+  /**
+   * Function used to initiate the BlogLibModule.
+   * @param provider the provider providing the BlogService implementation
+   */
   static forRoot(provider: Provider): ModuleWithProviders {
     return {
       ngModule: BlogLibModule,
-      providers: [provider]
+      providers: [provider, SidebarService]
     };
   }
 }

@@ -1,7 +1,13 @@
 <article class="mat-typography">
   <header fxLayout="column">
-    <div fxLayout="row-reverse">
-      <a routerLink="/" mat-button color="primary">Retour à la liste</a>
+    <div fxLayout="row" fxLayoutAlign.gt-xs="space-between center" fxLayoutAlign.xs="end center">
+      <button id="toggleCollapseBtn" mat-icon-button color="primary" (click)="toggleCollapse()"
+        fxHide.xs>
+        <mat-icon *ngIf="!isFullScreen" id="icon-fullscreen">fullscreen</mat-icon>
+        <mat-icon *ngIf="isFullScreen" id="icon-fullscreen-exit">fullscreen_exit</mat-icon>
+      </button>
+      <button mat-button color="primary" id="backToListBtn" (click)="backToList()">Retour
+        à la liste</button>
     </div>
 
     <div>

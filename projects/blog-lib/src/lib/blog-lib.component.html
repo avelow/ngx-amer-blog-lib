@@ -1,5 +1,5 @@
 <div class="container blog-lib" fxLayout.xs="column" fxLayout="row" fxLayoutGap="0px">
-  <div class="sidebar" ngClass.gt-xs="scrollable" fxFlex.gt-xs="40%">
+  <div class="sidebar" ngClass.gt-xs="scrollable" fxFlex.gt-xs="40%" [fxHide.gt-xs]="isCollapsed$ | async">
     <div data-simplebar>
       <ng-content select="[sidebar]"></ng-content>
     </div>

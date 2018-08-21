@@ -1,7 +1,9 @@
 @import '~@angular/material/theming';
 
 article {
+  margin: 0 auto;
   padding: 15px;
+  max-width: 880px;
 
   #article-title {
     margin-bottom: 0px;

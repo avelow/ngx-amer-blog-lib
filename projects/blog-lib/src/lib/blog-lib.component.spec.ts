@@ -1,19 +1,27 @@
+import { MaterialModule } from './material.module';
 import { FakeBlogService } from '../tests/fake-blog-lib.service';
 import { FakeMarkdownComponent } from '../tests/fake-markdown.component';
 import { MarkdownModule, MarkdownComponent } from 'ngx-markdown';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick
+} from '@angular/core/testing';
 import { BlogLibComponent } from './blog-lib.component';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BackgroundImageModule } from 'ngx-amer-directives';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ListArticlesComponent } from './articles/list-articles/list-articles.component';
 import { BLOG_SERVICE_TOKEN } from './blog-lib.tokens';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BLOG_ROUTES } from './blog-lib.routing';
 import { ViewArticleComponent } from './articles/view-article/view-article.component';
+import { SidebarService } from './sidebar.service';
+import { componentRefresh } from '@angular/core/src/render3/instructions';
 
 @Component({
   template: `
@@ -31,7 +39,7 @@ describe('BlogLibComponent', () => {
   let blogComponent: BlogLibComponent;
   let fixture: ComponentFixture<TestHostComponent>;
   let router: Router;
-  let location: Location;
+  let sidebarService: SidebarService;
 
   beforeEach(() => {
     TestBed.overrideModule(MarkdownModule, {
@@ -49,11 +57,14 @@ describe('BlogLibComponent', () => {
       imports: [
         RouterTestingModule.withRoutes(BLOG_ROUTES),
         CommonModule,
-        FlexLayoutModule,
+        MaterialModule,
         BackgroundImageModule,
         MarkdownModule
       ],
-      providers: [{ provide: BLOG_SERVICE_TOKEN, useClass: FakeBlogService }],
+      providers: [
+        { provide: BLOG_SERVICE_TOKEN, useClass: FakeBlogService },
+        SidebarService
+      ],
       declarations: [
         ViewArticleComponent,
         BlogLibComponent,
@@ -71,7 +82,7 @@ describe('BlogLibComponent', () => {
     blogComponent = blogDebugElement.componentInstance;
 
     router = TestBed.get(Router);
-    location = TestBed.get(Location);
+    sidebarService = TestBed.get(SidebarService);
     router.initialNavigation();
   });
 
@@ -116,4 +127,31 @@ describe('BlogLibComponent', () => {
       expect(secondArticle).toBeTruthy();
     });
   }));
+
+  it('should show the sidebar in function of the sidebarService', fakeAsync(() => {
+    // WHEN
+    sidebarService.open();
+    tick();
+    fixture.detectChanges();
+
+    // THEN
+    const sidebar = fixture.debugElement.query(By.css('.sidebar'));
+    expect(sidebar.nativeElement.style.display).not.toEqual('none');
+  }));
+
+  it('should hide the sidebar in function of the sidebarService', fakeAsync(() => {
+    // GIVEN
+    const sidebar = fixture.debugElement.query(By.css('.sidebar'));
+    expect(sidebar.nativeElement.style.display).not.toEqual('none');
+
+    // WHEN
+    sidebarService.collapse();
+    tick();
+    fixture.detectChanges();
+
+    // THEN
+    expect(sidebar.nativeElement.style.display).toEqual('none');
+  }));
+
+  // TODO : 21/08/2018 AMER Test affichage sidebar avec taille xs
 });

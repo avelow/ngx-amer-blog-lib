@@ -8,6 +8,9 @@ import { By } from '@angular/platform-browser';
 import { BLOG_SERVICE_TOKEN } from '../../blog-lib.tokens';
 import { FakeBlogService } from '../../../tests/fake-blog-lib.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { click } from 'ngx-amer-tests-utilities';
+import { Router } from '@angular/router';
+import { SidebarService } from '../../sidebar.service';
 
 @Component({
   template: `<amer-list-articles></amer-list-articles>`
@@ -20,12 +23,18 @@ describe('ListArticlesComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
   let service: BlogService;
+  let sidebarService: SidebarService;
+  let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, BackgroundImageModule],
       declarations: [ListArticlesComponent, TestHostComponent],
-      providers: [{ provide: BLOG_SERVICE_TOKEN, useClass: FakeBlogService }]
+      providers: [
+        { provide: BLOG_SERVICE_TOKEN, useClass: FakeBlogService },
+        { provide: SidebarService, useClass: SidebarService },
+        SidebarService
+      ]
     }).compileComponents();
   }));
 
@@ -33,6 +42,8 @@ describe('ListArticlesComponent', () => {
     fixture = TestBed.createComponent(TestHostComponent);
     component = fixture.componentInstance;
     service = TestBed.get(BLOG_SERVICE_TOKEN);
+    router = TestBed.get(Router);
+    sidebarService = TestBed.get(SidebarService);
   });
 
   it('should create', () => {
@@ -49,21 +60,21 @@ describe('ListArticlesComponent', () => {
 
   it('should have the good article link', () => {
     // GIVEN
+    spyOn(router, 'navigate');
+    spyOn(sidebarService, 'useDefault');
 
     // WHEN
     fixture.detectChanges();
     const firstArticle = fixture.debugElement.query(By.css('#titre-1'));
     const secondArticle = fixture.debugElement.query(By.css('#titre-2'));
+    click(firstArticle);
 
     // THEN
     expect(firstArticle).toBeTruthy();
-    expect(firstArticle.nativeElement.href).toEqual(
-      'http://localhost:9876/titre-1'
-    );
     expect(secondArticle).toBeTruthy();
-    expect(secondArticle.nativeElement.href).toEqual(
-      'http://localhost:9876/titre-2'
-    );
+
+    expect(sidebarService.useDefault).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['titre-1']);
   });
 
   it('should display all articles', () => {

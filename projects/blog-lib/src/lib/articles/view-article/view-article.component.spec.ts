@@ -2,17 +2,24 @@ import { FakeBlogService } from './../../../tests/fake-blog-lib.service';
 import { By } from '@angular/platform-browser';
 import { FakeMarkdownComponent } from '../../../tests/fake-markdown.component';
 import { MarkdownModule, MarkdownComponent } from 'ngx-markdown';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  fakeAsync
+} from '@angular/core/testing';
 
 import { BackgroundImageModule } from 'ngx-amer-directives';
 import { Component, Input } from '@angular/core';
 import { BlogService } from '../../blog-lib.interfaces';
 import { BLOG_SERVICE_TOKEN } from '../../blog-lib.tokens';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ViewArticleComponent } from './view-article.component';
-import { ActivatedRouteStub } from 'ngx-amer-tests-utilities';
+import { ActivatedRouteStub, click } from 'ngx-amer-tests-utilities';
 import { of } from 'rxjs';
+import { MaterialModule } from '../../material.module';
+import { SidebarService } from '../../sidebar.service';
 
 @Component({
   template: `<amer-view-article></amer-view-article>`
@@ -25,6 +32,8 @@ describe('ViewArticleComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
   let service: BlogService;
+  let router: Router;
+  let sidebarService: SidebarService;
   const activatedRouteStub = new ActivatedRouteStub({
     slug: 'titre-1'
   });
@@ -43,6 +52,7 @@ describe('ViewArticleComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        MaterialModule,
         BackgroundImageModule,
         RouterTestingModule,
         MarkdownModule.forRoot()
@@ -50,7 +60,8 @@ describe('ViewArticleComponent', () => {
       declarations: [ViewArticleComponent, TestHostComponent],
       providers: [
         { provide: BLOG_SERVICE_TOKEN, useClass: FakeBlogService },
-        { provide: ActivatedRoute, useValue: activatedRouteStub }
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        SidebarService
       ]
     }).compileComponents();
   }));
@@ -59,6 +70,8 @@ describe('ViewArticleComponent', () => {
     fixture = TestBed.createComponent(TestHostComponent);
     component = fixture.componentInstance;
     service = TestBed.get(BLOG_SERVICE_TOKEN);
+    router = TestBed.get(Router);
+    sidebarService = TestBed.get(SidebarService);
   });
 
   it('should call getArticleBySlug with the correct slug', () => {
@@ -195,4 +208,52 @@ describe('ViewArticleComponent', () => {
     // THEN
     expect(fixture.debugElement.query(By.css('h3.subheading-2'))).toBeTruthy();
   });
+
+  it('should set the default value for collapsed sidebar on going back to the list', () => {
+    // GIVEN
+    spyOn(sidebarService, 'setCurrentAsDefault');
+    spyOn(sidebarService, 'open');
+    spyOn(router, 'navigate');
+
+    // WHEN
+    fixture.detectChanges();
+    const backToListBtn = fixture.debugElement.query(By.css('#backToListBtn'));
+    click(backToListBtn);
+
+    // THEN
+    expect(sidebarService.setCurrentAsDefault).toHaveBeenCalled();
+    expect(sidebarService.open).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
+  });
+
+  it('should have the correct fullscreen icon', fakeAsync(() => {
+    // GIVEN
+    sidebarService.open();
+    fixture.detectChanges();
+    const toggleBtn = fixture.debugElement.query(By.css('#toggleCollapseBtn'));
+    expect(fixture.debugElement.query(By.css('#icon-fullscreen'))).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css('#icon-fullscreen-exit'))
+    ).toBeFalsy();
+
+    // WHEN
+    click(toggleBtn);
+    fixture.detectChanges();
+
+    // THEN
+    expect(fixture.debugElement.query(By.css('#icon-fullscreen'))).toBeFalsy();
+    expect(
+      fixture.debugElement.query(By.css('#icon-fullscreen-exit'))
+    ).toBeTruthy();
+
+    // WHEN
+    click(toggleBtn);
+    fixture.detectChanges();
+
+    // THEN
+    expect(fixture.debugElement.query(By.css('#icon-fullscreen'))).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css('#icon-fullscreen-exit'))
+    ).toBeFalsy();
+  }));
 });

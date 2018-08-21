@@ -2,6 +2,9 @@ import { ViewArticleComponent } from './articles/view-article/view-article.compo
 import { Routes } from '@angular/router';
 import { ListArticlesComponent } from './articles/list-articles/list-articles.component';
 
+/**
+ * Routes used with BlogLibModule
+ */
 export const BLOG_ROUTES: Routes = [
   {
     path: '',
