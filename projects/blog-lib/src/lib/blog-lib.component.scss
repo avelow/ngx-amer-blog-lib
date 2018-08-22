@@ -9,7 +9,12 @@
   height: 100vh;
 }
 
+.content {
+  z-index: 0;
+}
+
 .sidebar {
+  z-index: 1000;
   @include mat-elevation-transition();
   @include mat-elevation(2);
 
