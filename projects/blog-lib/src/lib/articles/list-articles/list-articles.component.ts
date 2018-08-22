@@ -11,6 +11,9 @@ import { Observable } from 'rxjs/internal/Observable';
   styleUrls: ['./list-articles.component.scss']
 })
 export class ListArticlesComponent implements OnInit {
+  /**
+   * Observable of the list of articles.
+   */
   articles$: Observable<Article[]>;
 
   constructor(

@@ -1,18 +1,18 @@
 <article class="mat-typography">
   <header fxLayout="column">
     <div fxLayout="row" fxLayoutAlign.gt-xs="space-between center" fxLayoutAlign.xs="end center">
-      <button id="toggleCollapseBtn" mat-icon-button color="primary" (click)="toggleCollapse()"
+      <button id="toggleCollapseBtn" mat-icon-button color="accent" (click)="toggleCollapse()"
         fxHide.xs>
         <mat-icon *ngIf="!isFullScreen" id="icon-fullscreen">fullscreen</mat-icon>
         <mat-icon *ngIf="isFullScreen" id="icon-fullscreen-exit">fullscreen_exit</mat-icon>
       </button>
-      <button mat-button color="primary" id="backToListBtn" (click)="backToList()">Retour
+      <button mat-button color="accent" id="backToListBtn" (click)="backToList()">Retour
         à la liste</button>
     </div>
 
     <div>
       <h1 id="article-title" class="headline">{{ (article$ | async)?.title }}</h1>
-      <h3 class="subheading-2" *ngIf="(article$ | async)?.publishedDate && (article$ | async)?.author">
+      <h3 id="article-infos" class="subheading-2" *ngIf="(article$ | async)?.publishedDate && (article$ | async)?.author">
         {{ (article$ | async)?.publishedDate | date:'fullDate' | titlecase }} par {{ (article$
         | async)?.author }}</h3>
     </div>

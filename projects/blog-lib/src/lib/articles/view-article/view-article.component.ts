@@ -1,10 +1,11 @@
 import { SidebarService } from './../../sidebar.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { Article, BlogService } from '../../blog-lib.interfaces';
 import { Observable } from 'rxjs/internal/Observable';
 import { BLOG_SERVICE_TOKEN } from '../../blog-lib.tokens';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'amer-view-article',
@@ -12,7 +13,14 @@ import { map, switchMap } from 'rxjs/operators';
   styleUrls: ['./view-article.component.scss']
 })
 export class ViewArticleComponent implements OnInit {
+  /**
+   * Observable of the current article.
+   */
   article$: Observable<Article>;
+
+  /**
+   * Define if the article is in fullsreen or not.
+   */
   isFullScreen: boolean;
 
   constructor(

@@ -13,3 +13,5 @@ npm install ngx-amer-blog-lib
 - Write a better readme.md
 - Translation
 - Add a licence
+
+@include blog-lib-variables($candy-app-theme);
