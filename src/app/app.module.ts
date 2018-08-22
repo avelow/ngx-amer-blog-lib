@@ -1,12 +1,11 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { MarkdownModule } from 'ngx-markdown';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { BlogLibModule } from 'blog-lib';
-import { BLOG_SERVICE_TOKEN } from 'blog-lib';
+import { BlogLibModule, BLOG_SERVICE_TOKEN } from 'blog-lib';
 import { MyBlogService } from './my-blog.service';
 
 @NgModule({
