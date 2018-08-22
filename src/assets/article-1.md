@@ -1,36 +1,132 @@
-Bienvenu sur les Mathématiques du Poker.
-Au travers de ce blog, nous allons étudier le côté obscure du poker : les mathématiques.
+> En mathématiques, la combinatoire, appelée aussi analyse combinatoire, étudie les configurations de collections finies d'objets ou les combinaisons d'ensembles finis, et les dénombrements.
 
-L'objectif est de comprendre les mathématiques qui régissent ce jeu qui nous passionne par sa complexité, son hasard qui se contrôle et qui en rendra certains riches et d'autres fous !
+C'est un peu barbare à la première lecture mais c'est beaucoup plus simple qu'il n'y parait. Pour expliquer les bases de la combinatoire, on va se baser sur une situation très simple que vous pouvez rencontrer lors de tournois live...
 
-## Concrètement, qu'est ce que je vais pouvoir trouver ici ?
+// TODO: virer ou garder le titre ?
 
-Des articles partant des bases du poker No Limit Holdem expliquant la manière d'obtenir mathématiquement les probabilités de gagner un coup en connaissant nos cartes et celles de l'adversaire.
-Au fil des articles, l'objectif est de travailler sur des notions plus avancées telles que les probabilités de gains d'une range contre une ou plusieurs ranges adverses. Certains travaux mathématiques seront repris et démystifier tel que les tableaux de Nash.
-Un sacré programme en perspective...
+# ... le placement des joueurs autour de la table.
 
-![Poker et mathématiques](https://www.superprof.fr/blog/file/2016/02/les-maths-et-le-poker.jpg)
+## Mise en situation
 
-## Tes articles, ils seront abordables pour quelqu'un qui n'a pas bac +5 spécialité mathématiques ?
+Nous sommes en train de participer à un tournois 6-max dans un cadre parfait :
+Piscine, musique et cartes ...
+Tout est au rendez vous... même Mirdoun, un joueur de talent capable de tout et surtout de gagner vos jetons avec une facilité déconcertante s'il se trouve à côté de vous.
 
-Si tu connais les bases du poker et de son vocabulaire, il ne devrait pas y avoir trop de soucis. Le niveau Bac Scientifique devrait être suffisant !
+Après plus de 3 heures de jeu, vous êtes dans la bonne voix avec votre stack qui dépassent les 35 000 jetons (alors que le buy in vous offrait 10 000 jetons !). Votre table casse après une dernière main difficile qui a mis à mal votre stack et votre confiance.
 
-![test](https://www.babelio.com/users/QUIZ_Petit-ou-Grand-dans-le-titre_4073.jpeg)
+Il vous reste 28 325 jetons et vous vous dirigez vers votre nouvelle table. Vous découvrez une table avec seulement 3 joueurs et donc 3 places libres. Vous arrivez donc avec 2 autres joueurs pour remplir cette table de 6-max. Et parmis eux, il y a Mirdoun !
+Oh non, vous espérer vraiment ne pas tomber à côté de lui pour pouvoir garder vos chances de survivre à la table.
 
-## Je joue au No Limit Holdem mais les autres variantes du poker m'intéressent aussi, y'aura-t-il des articles sur des variantes autres que le No Limit Holdem ?
+Table Initiale
+X L X X L L -> Hero Vilain Mirdoun
+![image de la situation avec le dessin de la table](/assets/presentation.png)
 
-C'est tout l'intérêt de ce blog. Le No Limit Holdem possède de très nombreuses ressources sur internet. Mon objectif est de commencer par reprendre les mathématiques qui se cachent derrière le No Limit Holdem pour ensuite pouvoir mettre en place la même réflexion sur d'autres variantes. Certaines variantes comme le Pot Limit Omaha High/Low m'intéressent fortement, ça sera un plaisir d'essayer de théoriser les maths de ces différentes variantes et de partager tout cela avec vous !
+L'objectif, si vous l'acceptez, sera de déterminer notre probabilité de nous retrouver assis à côté de l'impitoyable Mirdoun sachant que le placement des joueurs est purement aléatoire.
 
-### Finis les questions, voici le plan. Les 5 prochains thèmes seront :
+## Premier étape : le nombre de combinaisons possibles
 
-- la combinatoire et les probabilités dans une main de poker
-- Le concept de l'Expected Value
-- Le concept de l'Independant Chip Value
-- Le tableau de Nash
-- Les ranges de push or fold
+Pour commencer, nous allons essayer de déterminer toutes les combinaisons existantes. Avec 3 personnes à placer sur 3 sièges, rien de plus simple ! Il suffit de toutes les énumérer.
 
-PS : En plus des articles, je travaille aussi sur le développement du blog que je développe moi-même.
-A venir prochainement :
+configuration 1
+X H X X V M
 
-- un système de commentaires pour les articles
-- un système de recherche des articles par nom et catégorie
+configuration 2
+X H X X M V
+
+configuration 3
+X V X X H M
+
+configuration 4
+X V X X M H
+
+configuration 5
+X M X X H V
+
+configuration 6
+X M X X V H
+
+Nous avons donc 6 combinaisons possibles pour placer 3 personnes sur 3 sièges. En les énumérant, nous venons de dénombrer toutes les configurations possibles.
+
+On peut même dénombrer des configurations plus précises. Par exemple, toutes celles où nous sommes assis à côté de Mirdoun et puis celles où nous ne le sommes pas.
+
+Parmis les 6 configurations, nous nous retrouvons à côté de Mirdoun 2 fois. Dans les 4 configurations restantes, nous ne nous retrouvons pas à côté de Mirdoun.
+Nous avons donc 2 chances sur 6 de nous retrouver à côté de Mirdoun et 4 chances sur 6 de ne pas l'être.
+
+> Dans le monde des probabilités, on appelle un événement, un ensemble de résultats correspondant à une proposition. Dans notre cas, la porposition est "se retrouver assis à côté de l'impitoyable Mirdoun" et les resultats sont les configurations 3 et 4.
+
+> L'ensemble de tous les résultats possibles correspondant à l'expérience aléatoire est appelé l'univers.
+
+On peut dire que la probabilité l'événément "se retrouver assis à côté de l'impitoyable Mirdoun" est de 2/6 que l'on peut simplifier par 1/3 ou environ 33,33%.
+L'événement contraire est "ne pas se retrouver assis à côté de l'impitoyable Mirdoun" est de 4/6 soit 2/3 ou environ 66,66%.
+
+> Un événément étant certain à une probabilité de 1.
+
+On est certain dans notre situation que nous allons nous asseoir à la table. On peut donc dire que l'événement "s'asseoir à la table" est un événement certain et sa probabilité est de 1.
+
+> Pour faciliter la suite du raisonnement, nous allons rennomer les différents événements par une lettre.
+>
+> - "se retrouver assis à côté de l'impitoyable Mirdoun" => M (comme Mirdoun)
+> - "ne pas se retrouver assis à côté de l'impitoyable Mirdoun" => PM (comme Pas Mirdoun)
+> - "s'asseoir à la table" => S (comme S'asseoir)
+
+Lorsque l'on s'asseoit la table, on peut distinquer deux cas possibles :
+
+- "se retrouver assis à côté de l'impitoyable Mirdoun"
+- "ne pas se retrouver assis à côté de l'impitoyable Mirdoun"
+
+On peut donc dire que l'événement "s'asseoir à la table" = "se retrouver assis à côté de l'impitoyable Mirdoun" + "ne pas se retrouver assis à côté de l'impitoyable Mirdoun"
+
+> La somme de la probabilité d'un événement et de la probabilité de son événement contraire vaut toujours 1 car il s'agit d'un événémenent certain.
+
+> S = P + PM
+>
+> - S = 1
+> - P = 2/6
+> - PM = 4/6
+>
+> On a donc P + PM = 1
+
+Il est facile de déterminer PM en connaissant seulement M. En effet PM = 1 - M.
+On a donc : PM = 1 - 2/4 => PM = 4/6.
+
+On retrouve le résultat obtenu lorsque nous avions dénombrer toutes les configurations possibles.
+
+## Résumé
+
+- probabilité d'un événément c'est le nombre de résultats correspondant à cette événement diviser par le nombre total de configurations possibles
+- proba certaine vaut 1
+- proba événément A + proba contraintre de événement A = 1
+
+///////
+
+Résumé de toutes les notions
+Intro sur cas cartes déterminer le proabibilité d'obtenir une paire de 10 ou plus lors de la distribution des cartes
+
+Sachant qu'il y a 52 cartes et qu'on en reçoit 2 aléatoirement
+
+# Combinatoire autour de la table
+
+exo simple combinatoire
+
+table de 6 max 3 déjà placés et 3 nouveaux qui au niveau de 3 sièges libre
+
+X L X X L L
+
+parmis les 3 qui arrivent, il y a le top reg du moment et vous ne voulez surtout pas qu'il soit à votre gauche comme à votre droite
+
+Quelle est la proba de l'éviter
+en étape
+-> nb de combinaison possible
+-> nb de combinaison possible avec lui a côté
+-> nb de combinaison sans lui à côté
+
+avec + sans = total
+
+avec / total = proba avec
+sans / total = proba sans
+
+Enumération pour tout montrer
+
+puis même cas sans énumération
+
+intro sur carte avec exo et piste de reflexion

@@ -1,5 +1,5 @@
-<article class="mat-typography">
-  <header fxLayout="column">
+<article>
+  <header class="mat-typography" fxLayout="column">
     <div fxLayout="row" fxLayoutAlign.gt-xs="space-between center" fxLayoutAlign.xs="end center">
       <button id="toggleCollapseBtn" mat-icon-button color="accent" (click)="toggleCollapse()"
         fxHide.xs>
@@ -18,7 +18,7 @@
     </div>
   </header>
 
-  <section>
+  <section [ngClass]="{'article-fullscreen-typography': isFullScreen,'article-not-fullscreen-typography': !isFullScreen}">
     <markdown *ngIf="(article$ | async).filePath" [src]="(article$ | async).filePath"></markdown>
   </section>
 </article>
