@@ -20,6 +20,34 @@ npm install --save ngx-markdown
 npm install --save simplebar
 ```
 
+For simplebar, you will have to add some css et javascript dependencies.
+Just add the following lines in your angular.json
+
+```json
+{
+"projects": {
+    "your-app": {
+      ...,
+      "architect": {
+        "build": {
+          ...,
+          "options": {
+            ...,
+            "styles": [
+              ...,
+              "node_modules/simplebar/dist/simplebar.min.css"
+            ],
+            "scripts": [
+              ...,
+              "node_modules/simplebar/dist/simplebar.min.js"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ### Installing
 
 Run the following command :
