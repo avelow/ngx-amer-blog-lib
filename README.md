@@ -23,7 +23,7 @@ npm install --save simplebar
 For simplebar, you will have to add some css et javascript dependencies.
 Just add the following lines in your angular.json
 
-```json
+```javascript
 {
   "projects": {
     "your-app": {
