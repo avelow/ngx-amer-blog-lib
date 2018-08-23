@@ -32,55 +32,38 @@ npm install --save ngx-amer-blog-lib
 
 Create an AppRoutingModule if you don't have one and give it the BLOG_ROUTES through the import of the RouterModule.
 
-```
-import {BLOG_ROUTES} from 'blog-lib';
-
+```typescript
+import { BLOG_ROUTES } from 'blog-lib';
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(BLOG_ROUTES)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(BLOG_ROUTES)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
 ```
 
 You can customize the path by redefining the routes.
 
-```
-import {BLOG_ROUTES} from 'blog-lib';
+```typescript
+import { BLOG_ROUTES } from 'blog-lib';
 
-const routes: Routes = [{
-   path: 'my-path',
-   children: [
-    {
-        path: '',
-        pathMatch: 'full',
-        component: ListArticlesComponent
-    },
-    {
-        path: ':slug',
-        component: ViewArticleComponent
-    }
-   ]
-}]
+const routes: Routes = [
+  {
+    path: 'my-path',
+    children: BLOG_ROUTES
+  }
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
 ```
 
 And then import the AppRoutingModule in the AppModule.
 
-```
+```typescript
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -97,14 +80,14 @@ export class AppModule {}
 
 You have to implements the following interface and to give it to the BlogModule in the forRoot() method.
 
-```
+```typescript
 interface BlogService {
   getArticles(): Observable<Article[]>;
   getArticleBySlug(slug: string): Observable<Article>;
 }
 ```
 
-```
+```typescript
 import { BlogLibModule, BLOG_SERVICE_TOKEN } from 'blog-lib';
 
 @NgModule({
@@ -126,7 +109,7 @@ export class AppModule {}
 
 You will have to import the MarkdownModule and the HttpClientModule to make the library work.
 
-```
+```typescript
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -149,7 +132,7 @@ export class AppModule {}
 
 Then you just have to create the amer-blog-lib component and to define your sidebar to make the blog work.
 
-```
+```html
 <amer-blog-lib>
   <div sidebar>
     <!-- Your sidebar -->
@@ -162,7 +145,7 @@ Then you just have to create the amer-blog-lib component and to define your side
 To customize the color of the blog, you just have to include the configuration in your root scss file.
 Advice : remove margin and padding for the html and body element.
 
-```
+```scss
 html,
 body {
   margin: 0 0;
