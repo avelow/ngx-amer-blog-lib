@@ -57,6 +57,18 @@ Run the following command :
 npm install --save ngx-amer-blog-lib
 ```
 
+To use the Merriweather font, you have to add it to your application by adding this to your index.html
+
+```html
+<html>
+  <head>
+    <!-- ... -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  </head>
+  <!-- ... -->
+</html>
+```
+
 #### Defining the routes of the blog
 
 Create an AppRoutingModule if you don't have one and give it the BLOG_ROUTES through the import of the RouterModule.
