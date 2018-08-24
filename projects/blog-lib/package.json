@@ -1,6 +1,6 @@
 {
   "name": "ngx-amer-blog-lib",
-  "version": "0.0.5",
+  "version": "0.0.6-SNAPSHOT",
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
