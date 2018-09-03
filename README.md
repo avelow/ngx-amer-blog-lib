@@ -225,6 +225,7 @@ The library is still in development. When it will be more stable, I may open it 
 ## Authors
 
 - **Alexis Merceron** - _Passionate developer_ - [Github](https://github.com/avelow)
+- **Quentin Lambert** - _Designer_ - [quentinlambert.com/](https://quentinlambert.com/)
 
 ## License
 
